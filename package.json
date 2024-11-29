@@ -1,0 +1,29 @@
+{
+  "name": "devtinder",
+  "version": "1.0.0",
+  "description": "tinder for developers",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/app.js",
+    "dev": "nodemon ./src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/auniii3/DevTinder.git"
+  },
+  "keywords": [
+    "nodejs",
+    "javascript"
+  ],
+  "author": "Aniket Patra",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/auniii3/DevTinder/issues"
+  },
+  "homepage": "https://github.com/auniii3/DevTinder#readme",
+  "dependencies": {
+    "devtinder": "file:",
+    "express": "^4.21.1",
+    "mongoose": "^8.8.3"
+  }
+}
