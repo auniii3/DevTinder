@@ -22,8 +22,10 @@
   },
   "homepage": "https://github.com/auniii3/DevTinder#readme",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "devtinder": "file:",
     "express": "^4.21.1",
-    "mongoose": "^8.8.3"
+    "mongoose": "^8.8.3",
+    "validator": "^13.12.0"
   }
 }
