@@ -1,26 +1,24 @@
-const authAdmin = (req, res, next) => {
-  const token = "xyz";
-  console.log("Admin Authentication System");
-  const isAuthenticated = token === "xyz";
-  if (!isAuthenticated) {
-    res.status(401).send("Admin is not authenticated");
-  } else {
-    next();
-  }
-};
+const jwt = require("jsonwebtoken");
+const User = require("../models/User");
 
-const authUser = (req, res, next) => {
-  const token = "xyz";
-  console.log("User Authentication System");
-  const isAuthenticated = token === "xyz";
-  if (!isAuthenticated) {
-    res.status(401).send("User is not authenticated");
-  } else {
+const userAuth = async (req, res, next) => {
+  try {
+    const { token } = req.cookies;
+    if (!token) {
+      throw new Error("Invalid Token !!!!!");
+    }
+    const { _id } = jwt.verify(token, "DevTinder@123");
+    const user = await User.findById(_id);
+    if (!user) {
+      throw new Error("User not found !!!!!");
+    }
+    req.user = user;
     next();
+  } catch (err) {
+    res.status(400).send("ERROR: " + err.message);
   }
 };
 
 module.exports = {
-  authAdmin,
-  authUser,
+  userAuth,
 };
