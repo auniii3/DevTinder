@@ -5,6 +5,7 @@ const app = express();
 const { authRouter } = require("./routers/auth");
 const { profileRouter } = require("./routers/profile");
 const { requestRouter } = require("./routers/request");
+const { userRouter } = require("./routers/user");
 
 //express.json() is a middleware used to convert the JSON to js objects so that js can read it
 app.use(express.json());
@@ -13,6 +14,7 @@ app.use(cookieParser());
 app.use("/", authRouter);
 app.use("/", profileRouter);
 app.use("/", requestRouter);
+app.use("/", userRouter);
 
 //connect to db then start the server
 connectDb()
