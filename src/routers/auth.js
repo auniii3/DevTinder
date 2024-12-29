@@ -7,7 +7,7 @@ const bcrypt = require("bcrypt");
 //signup
 authRouter.post("/signup", async (req, res) => {
   // Creating a new instance of the User
-  const { firstName, lastName, emailId, password } = req.body;
+  const { firstName, lastName, emailId, password, gender } = req.body;
   try {
     //Validate the data
     validateSignUpData(req);
@@ -16,11 +16,19 @@ authRouter.post("/signup", async (req, res) => {
       firstName,
       lastName,
       emailId,
+      gender,
       password: passwordHash,
     });
     //.save() it saves the user to the database
     await user.save();
-    res.send("User added to the database successfully");
+    const token = await user.getJWT();
+    res.cookie("token", token, {
+      expires: new Date(Date.now() + 8 * 3600000),
+    });
+    res.send({
+      message: "User added to the database successfully",
+      data: user,
+    });
   } catch (err) {
     res.status(400).send("ERROR: " + err.message);
   }
@@ -40,7 +48,7 @@ authRouter.post("/login", async (req, res) => {
       res.cookie("token", token, {
         expires: new Date(Date.now() + 8 * 3600000),
       });
-      res.send("Login successful!!!");
+      res.send(user);
     } else {
       throw new Error("Invalid Credentials");
     }
